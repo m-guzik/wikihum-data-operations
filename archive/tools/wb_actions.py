@@ -18,13 +18,20 @@ wbi = WikibaseIntegrator(login=login_instance)
 
 
 def check_if_item_exists(label: str, description: str) -> str: 
-    """ 
+    """
     Checks if the item with given label and description exists in Wikibase
-    Args:
-        label (str): label of the item in Polish
-        description (str): description of the item in Polish
-    Returns:
-        str: ID of the existing item or an empty string 
+
+    Parameters
+    ----------
+    label : str
+        label of the item in Polish
+    description : str
+        description of the item in Polish
+
+    Returns
+    -------
+    str
+        ID of the existing item or an empty string 
     """
     result = wbi_helpers.search_entities(search_string=label, language='pl')
     for existing_entity_id in result:
@@ -38,29 +45,43 @@ def check_if_item_exists(label: str, description: str) -> str:
 def check_if_item_exists_by_ID(id: str) -> entities.item.ItemEntity | str: 
     """ 
     Checks if the item with given ID exists in Wikibase
-    Args:
-        id (str): ID of the item
-    Returns:
-        str: existing item entity or an empty string 
+
+    Parameters
+    ----------
+    id : str
+        ID of the item
+
+    Returns
+    -------
+    str
+        existing item entity or an empty string 
     """
     try: 
         item_entity = wbi.item.get(entity_id=id)
-        return item_entity
+        return item_entity        
     except:
         return ''
 
 
 def add_new_item(label_pl: str, description_pl: str, description_en: str) -> entities.item.ItemEntity: 
-    """ 
-    Checks if the item with given label and description (both in Polish) exists in Wikibase, if not 
-    then adds it
-    Args:
-        label (str): label of the item in Polish
-        description_pl (str): description of the item in Polish
-        description_en (str): description of the item in English
-    Returns:
-        entities.item.ItemEntity: added item entity or existing item entity
     """
+    Checks if the item with given label and description (both in Polish) exists in Wikibase, if not then adds it
+
+    Parameters
+    ----------
+    label : str
+        label of the item in Polish
+    description_pl : str
+        description of the item in Polish
+    description_en : str
+        description of the item in English
+
+    Returns
+    -------
+    entities.item.ItemEntity
+        added item entity or existing item entity
+    """
+
     potential_item_id = check_if_item_exists(label=label_pl, description=description_pl) 
     if not potential_item_id:
         wbi_new_item = wbi.item.new()
@@ -69,7 +90,7 @@ def add_new_item(label_pl: str, description_pl: str, description_en: str) -> ent
 
         wbi_new_item.descriptions.set(language='pl', value=description_pl)
         wbi_new_item.descriptions.set(language='en', value=description_en)
-        
+
         result = wbi_new_item.write()
         print('Item', label_pl, 'was added, ID =', result.id)
         return result
@@ -82,12 +103,20 @@ def add_new_item(label_pl: str, description_pl: str, description_en: str) -> ent
 def search_for_item_with_property(label: str, prop_id: str, prop_value_id: str) -> str: 
     """
     Checks if the item with given label exists in Wikibase and if it has given property with given value
-    Args:
-        label (str): label of the item in Polish
-        prop_id (str): ID of the property to check
-        prop_value_id (str): ID of the value of the property to check 
-    Returns:
-        str: ID of the existing item or an empty string 
+
+    Parameters
+    ----------
+    label : str
+        label of the item in Polish
+    prop_id : str
+        ID of the property to check
+    prop_value_id : str
+        ID of the value of the property to check 
+
+    Returns
+    -------
+    str
+        ID of the existing item or an empty string
     """
     search_result = wbi_helpers.search_entities(search_string=label)
     if search_result != []:

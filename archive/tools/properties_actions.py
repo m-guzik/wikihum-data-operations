@@ -26,8 +26,11 @@ wbi = WikibaseIntegrator(login=login_instance)
 def add_human(wbi_item: entities.item.ItemEntity):
     """
     Adds property 'instance of' with value 'human' to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
     """
     wbi_item.claims.add([Item(value='Q32', prop_nr='47')])
     print('Property "instance of" (human) was added')
@@ -37,9 +40,13 @@ def add_given_name(wbi_item: entities.item.ItemEntity, given_name: str):
     """
     Checks if given name exists in Wikibase as an item (instance of 'male given name') and 
     creates it if needed; then adds property 'given name' with given value to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        given_name (str): name 
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    given_name : str
+        name
     """
     given_name_id = wb_actions.search_for_item_with_property(given_name, 'P47', 'Q987')
     if not given_name_id:
@@ -55,9 +62,13 @@ def add_family_name(wbi_item: entities.item.ItemEntity, family_name: str):
     """
     Checks if given family name exists in Wikibase as an item (instance of 'family name') and 
     creates it if needed; then adds property 'family name' with given value to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        family_name (str): family name 
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    family_name : str
+        family name
     """
     family_name_id = wb_actions.search_for_item_with_property(family_name, 'P47', 'Q34')
     if not family_name_id:
@@ -72,9 +83,13 @@ def add_family_name(wbi_item: entities.item.ItemEntity, family_name: str):
 def add_location_as_string(wbi_item: entities.item.ItemEntity, location_name: str):
     """
     Adds property 'called (string)' (place where person came from) with given value to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        location_name (str): name of the location
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    location_name : str
+        name of the location
     """
     wbi_item.claims.add([String(value=location_name, prop_nr='P373')])
     print('Property "called (string)" was added')
@@ -84,9 +99,13 @@ def add_coat_of_arms(wbi_item: entities.item.ItemEntity, coat_of_arms_name: str)
     """
     Checks if given coat of arms name exists in Wikibase as an item (instance of 'Coat of arms') and 
     creates it if needed; then adds property 'coat of arms' with given value to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        coat_of_arms_name (str): name of the coat of arms
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    coat_of_arms_name : str
+        name of the coat of arms
     """
     coat_of_arms_id = wb_actions.search_for_item_with_property(coat_of_arms_name, 'P47', 'Q53')
     if not coat_of_arms_id:
@@ -103,9 +122,13 @@ def add_date_of_birth(wbi_item: entities.item.ItemEntity, point_in_time: str):
     """
     Retrieves information about exact date, precision and qualifier from given point in time and adds 
     it as property 'date of birth' to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        point_in_time (str): date of birth with optional additional information 
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    point_in_time : str
+        date of birth with optional additional information 
     """
     value, precision, qualifier = dates_formatter.get_numeric_value_precision_and_qualifier(point_in_time)
     wbi_time = dates_formatter.get_wbi_time(value)
@@ -119,9 +142,13 @@ def add_date_of_death(wbi_item: entities.item.ItemEntity, point_in_time: str):
     """
     Retrieves information about exact date, precision and qualifier from given point in time and adds 
     it as property 'date of death' to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        point_in_time (str): date of death with optional additional information 
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    point_in_time : str
+        date of death with optional additional information 
     """
     value, precision, qualifier = dates_formatter.get_numeric_value_precision_and_qualifier(point_in_time)
     wbi_time = dates_formatter.get_wbi_time(value)
@@ -144,9 +171,13 @@ def add_floruit(wbi_item: entities.item.ItemEntity, point_in_time: str):
     """
     Retrieves information about exact date, precision and qualifier from given point in time and adds 
     it as property 'floruit' to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        point_in_time (str): date with optional additional information 
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    point_in_time : str
+        date with optional additional information
     """
     value, precision, qualifier = dates_formatter.get_numeric_value_precision_and_qualifier(point_in_time)
     wbi_time = dates_formatter.get_wbi_time(value)
@@ -157,10 +188,15 @@ def add_floruit(wbi_item: entities.item.ItemEntity, point_in_time: str):
 def add_birth_place(wbi_item: entities.item.ItemEntity, place_name: str, prng_id: str):
     """
     Adds property 'place of birth' with given place to the item (based on the PRNG ID)
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        place_name (str): name of the place of birth
-        prng_id (str): PRNG ID of the given place
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    place_name : str
+        name of the place of birth
+    prng_id : str
+        PRNG ID of the given place
     """
     place_id = wb_actions.search_for_item_with_property(place_name, 'P274', prng_id)
     if place_id:
@@ -173,10 +209,15 @@ def add_birth_place(wbi_item: entities.item.ItemEntity, place_name: str, prng_id
 def add_stated_as(wbi_item: entities.item.ItemEntity, text: str, language: str):
     """
     Adds property 'stated as' with given text in given language to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the property is to be added
-        text (str): text to be added as a property value
-        language (str): language of the given text
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    text : str
+        text to be added as a property value
+    language : str
+        language of the given text
     """
     reference_URL = [[ URL(value='http://serwerone.nazwa.pl/urzednicy10/', prop_nr='P182') ]]
     wbi_item.claims.add([MonolingualText(text=text, language=language, prop_nr='P195', references=reference_URL)], action_if_exists=ActionIfExists.APPEND_OR_REPLACE)
@@ -186,10 +227,15 @@ def add_stated_as(wbi_item: entities.item.ItemEntity, text: str, language: str):
 def add_alias(wbi_item: entities.item.ItemEntity, text: str, language: str):
     """
     Adds 'alias' with given text in given language to the item
-    Args:
-        wbi_item (entities.item.ItemEntity): item entity to which the alias is to be added
-        text (str): text to be added as alias
-        language (str): language of the given text
+
+    Parameters
+    ----------
+    wbi_item : entities.item.ItemEntity
+        item entity to which the property is to be added
+    text : str
+        text to be added as a alias
+    language : str
+        language of the given text
     """
     wbi_item.aliases.set(language=language, values=text)
     print('Alias was added')

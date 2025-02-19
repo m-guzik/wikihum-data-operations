@@ -1,5 +1,5 @@
 .vscode
-tools/__pycache__
+archive/tools/__pycache__
 
 # Environments
 .env

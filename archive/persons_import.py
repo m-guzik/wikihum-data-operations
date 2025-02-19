@@ -21,8 +21,8 @@ BOT_PASSWORD = os.environ.get('BOT_PASSWORD')
 login_instance = wbi_login.Login(user=BOT_NAME, password=BOT_PASSWORD)
 wbi = WikibaseIntegrator(login=login_instance)
 
-data_file_path = 'data/persons.xml'
-# data_file_path = 'data/test.xml'
+data_file_path = 'archive/data/persons.xml'
+# data_file_path = 'archive/data/test.xml'
 data_file = ET.parse(data_file_path)
 
 for person in data_file.getroot():
