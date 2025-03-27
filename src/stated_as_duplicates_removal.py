@@ -33,12 +33,13 @@ P_STATED_AS = 'P54'
 
 def check_two_property_values_equality(claim_1: Claim, claim_2: Claim) -> tuple[bool, str]:
     """
-    Checks if two claim values have the same text value, language, qualifiers and references
+    Checks if two claim values have the same text value, language, qualifiers and references.
+    Works for properties with datatype "monolingual text".
 
     Parameters
     ----------
     claim_1 : Claim
-    
+        First Claim
     claim_2 : Claim
         Second Claim
 
